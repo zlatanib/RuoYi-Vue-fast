@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.score.mapper.ScoClassMapper">
+    
+    <resultMap type="ScoClass" id="ScoClassResult">
+        <result property="classId"    column="class_id"    />
+        <result property="classNo"    column="class_no"    />
+        <result property="className"    column="class_name"    />
+        <result property="part"    column="part"    />
+        <result property="nature"    column="nature"    />
+        <result property="level"    column="level"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectScoClassVo">
+        select class_id, class_no, class_name, part, nature, level, status, del_flag, create_by, create_time, update_by, update_time, remark from sco_class
+    </sql>
+
+    <select id="selectScoClassList" parameterType="ScoClass" resultMap="ScoClassResult">
+        <include refid="selectScoClassVo"/>
+        <where>  
+            <if test="classNo != null  and classNo != ''"> and class_no = #{classNo}</if>
+            <if test="className != null  and className != ''"> and class_name like concat('%', #{className}, '%')</if>
+            <if test="part != null "> and part = #{part}</if>
+            <if test="nature != null "> and nature = #{nature}</if>
+            <if test="level != null "> and level = #{level}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectScoClassByClassId" parameterType="Long" resultMap="ScoClassResult">
+        <include refid="selectScoClassVo"/>
+        where class_id = #{classId}
+    </select>
+        
+    <insert id="insertScoClass" parameterType="ScoClass" useGeneratedKeys="true" keyProperty="classId">
+        insert into sco_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="classNo != null and classNo != ''">class_no,</if>
+            <if test="className != null and className != ''">class_name,</if>
+            <if test="part != null">part,</if>
+            <if test="nature != null">nature,</if>
+            <if test="level != null">level,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="classNo != null and classNo != ''">#{classNo},</if>
+            <if test="className != null and className != ''">#{className},</if>
+            <if test="part != null">#{part},</if>
+            <if test="nature != null">#{nature},</if>
+            <if test="level != null">#{level},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScoClass" parameterType="ScoClass">
+        update sco_class
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="classNo != null and classNo != ''">class_no = #{classNo},</if>
+            <if test="className != null and className != ''">class_name = #{className},</if>
+            <if test="part != null">part = #{part},</if>
+            <if test="nature != null">nature = #{nature},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where class_id = #{classId}
+    </update>
+
+    <delete id="deleteScoClassByClassId" parameterType="Long">
+        delete from sco_class where class_id = #{classId}
+    </delete>
+
+    <delete id="deleteScoClassByClassIds" parameterType="String">
+        delete from sco_class where class_id in 
+        <foreach item="classId" collection="array" open="(" separator="," close=")">
+            #{classId}
+        </foreach>
+    </delete>
+</mapper>
