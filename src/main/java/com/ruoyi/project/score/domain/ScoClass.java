@@ -27,19 +27,19 @@ public class ScoClass extends BaseEntity
     private String className;
 
     /** 班级所属部分（1：A部分 2：B部分 3：课改部分） */
-    @Excel(name = "班级所属部分", readConverterExp = "1=：A部分,2=：B部分,3=：课改部分")
+    @Excel(name = "所属部分", readConverterExp = "1=A部分,2=B部分,3=课改部分")
     private Long part;
 
     /** 班级性质（0：文科 1：理科） */
-    @Excel(name = "班级性质", readConverterExp = "0=：文科,1=：理科")
+    @Excel(name = "班级性质", readConverterExp = "0=文科,1=理科")
     private Long nature;
 
     /** 理科班级所属层次（1：一层次 2：二层次 3：三层次） */
-    @Excel(name = "理科班级所属层次", readConverterExp = "1=：一层次,2=：二层次,3=：三层次")
+    @Excel(name = "所属层次", readConverterExp = "1=一层次,2=二层次,3=三层次,0=/")
     private Long level;
 
     /** 班级状态（0正常 1停用） */
-    @Excel(name = "班级状态", readConverterExp = "0=正常,1=停用")
+    @Excel(name = "班级状态", readConverterExp = "0=停用,1=正常")
     private String status;
 
     /** 删除标志（0代表存在 2代表删除） */
