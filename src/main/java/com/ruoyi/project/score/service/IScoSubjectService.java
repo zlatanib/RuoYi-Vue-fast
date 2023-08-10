@@ -2,6 +2,7 @@ package com.ruoyi.project.score.service;
 
 import java.util.List;
 import com.ruoyi.project.score.domain.ScoSubject;
+import com.ruoyi.project.score.domain.ScoTeacher;
 
 /**
  * 学科管理Service接口
@@ -58,4 +59,12 @@ public interface IScoSubjectService
      * @return 结果
      */
     public int deleteScoSubjectBySubjectId(Long subjectId);
+
+    /**
+     * 根据条件分页查询教师已分配科目列表
+     *
+     * @param teacher 教师信息
+     * @return 学科集合信息
+     */
+    List<ScoSubject> selectAllocatedList(ScoTeacher teacher);
 }

@@ -24,7 +24,7 @@ public class ScoSubject extends BaseEntity
     private String subjectName;
 
     /** 属性（0文科 1理科） */
-    @Excel(name = "属性", readConverterExp = "0=文科,1=理科")
+    @Excel(name = "属性", readConverterExp = "0=文科,1=理科,2=BOTH")
     private String nature;
 
     /** 删除标志（0代表存在 2代表删除） */

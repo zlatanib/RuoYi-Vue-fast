@@ -2,6 +2,7 @@ package com.ruoyi.project.score.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.project.score.domain.ScoTeacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.project.score.mapper.ScoSubjectMapper;
@@ -92,5 +93,16 @@ public class ScoSubjectServiceImpl implements IScoSubjectService
     public int deleteScoSubjectBySubjectId(Long subjectId)
     {
         return scoSubjectMapper.deleteScoSubjectBySubjectId(subjectId);
+    }
+
+    /**
+     * 根据条件分页查询教师已分配科目列表
+     *
+     * @param teacher 教师信息
+     * @return 学科集合信息
+     */
+    @Override
+    public List<ScoSubject> selectAllocatedList(ScoTeacher teacher) {
+        return scoSubjectMapper.selectAllocatedList(teacher);
     }
 }

@@ -33,6 +33,15 @@
         <include refid="selectScoSubjectVo"/>
         where subject_id = #{subjectId}
     </select>
+    <select id="selectAllocatedList" parameterType="ScoTeacher" resultMap="ScoSubjectResult">
+        select distinct s.subject_id, s.subject_name, s.nature, s.del_flag, s.create_by, s.create_time
+        from sco_subject s
+            left join sco_teacher_subject st on s.subject_id = st.subject_id
+            left join sco_teacher t on st.teacher_id = t.teacher_id
+        where st.teacher_id = #{teacherId}
+        <!--数据范围过滤-->
+        ${params.dataScope}
+    </select>
 
     <insert id="insertScoSubject" parameterType="ScoSubject" useGeneratedKeys="true" keyProperty="subjectId">
         insert into sco_subject

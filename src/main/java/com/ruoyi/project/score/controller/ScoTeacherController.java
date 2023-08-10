@@ -2,6 +2,10 @@ package com.ruoyi.project.score.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.project.score.domain.ScoSubject;
+import com.ruoyi.project.score.service.IScoSubjectService;
+import com.ruoyi.project.system.domain.SysUser;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +37,9 @@ public class ScoTeacherController extends BaseController
 {
     @Autowired
     private IScoTeacherService scoTeacherService;
+
+    @Autowired
+    private IScoSubjectService scoSubjectService;
 
     /**
      * 查询教师信息列表
@@ -100,5 +107,17 @@ public class ScoTeacherController extends BaseController
     public AjaxResult remove(@PathVariable Long[] teacherIds)
     {
         return toAjax(scoTeacherService.deleteScoTeacherByTeacherIds(teacherIds));
+    }
+
+    /**
+     * 查询教师已分配科目列表
+     */
+    @PreAuthorize("@ss.hasPermi('score:teacher:list')")
+    @GetMapping("/teachSubject/allocatedList")
+    public TableDataInfo allocatedList(ScoTeacher teacher)
+    {
+        startPage();
+        List<ScoSubject> list = scoSubjectService.selectAllocatedList(teacher);
+        return getDataTable(list);
     }
 }
